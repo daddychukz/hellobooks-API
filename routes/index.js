@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const booksController = require('../controller/books');
+const userController = require('../controller/signups');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -17,5 +18,7 @@ router.get('/api/books/:bookId', booksController.retrieve);
 router.put('/api/books/:bookId', booksController.updateUser);
 
 router.delete('/api/books/:bookId', booksController.deleteUser);
+
+router.post('/api/users/signup', userController.register);
 
 module.exports = router;
