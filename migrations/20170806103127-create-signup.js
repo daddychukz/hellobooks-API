@@ -27,7 +27,8 @@ module.exports = {
         type: Sequelize.STRING
       },
       memLevel: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       photo: {
         type: Sequelize.BLOB
