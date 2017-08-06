@@ -1,0 +1,111 @@
+const Book = require('../models').Book;
+
+const create = (req, res) => {
+    return Book
+        .create({
+            title: req.body.title,
+            author: req.body.author
+        })
+        .then(book => res.status(200).send(book))
+        .catch(err => res.status(400).send(err));
+};
+
+const retrieveAll = (req, res) => {
+    return Book
+        .all()
+        .then(book => res.status(200).send(book))
+        .catch(err => res.status(400).send(err));
+}
+
+const retrieve = (req, res) => {
+    return Book
+        .findById(req.params.bookId)
+        .then(book => {
+           if (!book) { 
+            return res.status(404).send({
+                message: 'Book Not Found!',
+            });
+           }   
+            return res.status(200).send(book);
+        })
+        .catch(err => res.status(400).send(err));
+}
+/*
+const updateUser = (req, res) => {
+    return Book
+        .findById(req.params.bookId)
+        .then(book => {
+           if (!book) { 
+            return res.status(404).send({
+                message: 'Book Not Found!',
+            });
+           }
+        return book
+           .update({
+               title: req.body.title || book.title,
+               author: req.body.author || book.author
+           })
+            .then(() => res.status(200).send(book))  // Send back the updated todo.
+            .catch((error) => res.status(400).send(errors));
+            })
+            .catch((error) => res.status(400).send(error));     
+          };
+*/
+const updateUser = (req, res) => {
+ const updateFields = {};
+
+    Book.findOne({
+        where: {
+          id: req.params.bookId,
+        },
+      })
+      .then((foundUser) => {
+        let updateFields = {};
+        if (foundUser === null) {
+          return res.status(404).send({
+            message: 'This record does not exists!',
+          });
+        }
+
+        if (req.body.title) {
+          updateFields.title = req.body.title;
+        }
+
+        if (req.body.author) {
+          updateFields.author = req.body.author;
+        }
+
+        foundUser.update(updateFields)
+          .then(updateUser => res.send({
+            message: 'Successfully Updated',
+            updatedUser: updateUser,
+          }));
+      });
+  }
+
+const deleteUser = (req, res) => {
+    return Book
+      .findById(req.params.bookId)
+      .then(book => {
+        if (!book) {
+          return res.status(400).send({
+            message: 'This record was not found!',
+          });
+        }
+        return book
+            .destroy()
+            .then(deleteUser => res.send({
+                message: 'Record Successfully Deleted',
+            }))
+            .catch(error => res.status(400).send(error));
+        })
+        .catch(error => res.status(400).send(error));
+  }
+
+module.exports = {
+    create,
+    retrieveAll,
+    retrieve,
+    updateUser,
+    deleteUser
+}
