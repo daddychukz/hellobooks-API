@@ -3,19 +3,19 @@ module.exports = function(sequelize, DataTypes) {
   const signup = sequelize.define('signup', {
     fullName: {
     type: DataTypes.STRING,
-    allowNull: true,
+    allowNull: false,
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     sex: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     userName: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     phoneNumber: {
       type: DataTypes.INTEGER,
@@ -23,11 +23,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     memLevel: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     photo: {
       type: DataTypes.BLOB,
