@@ -21,4 +21,6 @@ router.delete('/api/books/:bookId', booksController.deleteUser);
 
 router.post('/api/users/signup', userController.register);
 
+router.post('/api/users/signin', userController.login);
+
 module.exports = router;
