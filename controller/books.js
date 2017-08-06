@@ -4,7 +4,9 @@ const create = (req, res) => {
     return Book
         .create({
             title: req.body.title,
-            author: req.body.author
+            author: req.body.author,
+            category: req.body.category,
+            units: req.body.units
         })
         .then(book => res.status(200).send(book))
         .catch(err => res.status(400).send(err));
@@ -51,7 +53,7 @@ const updateUser = (req, res) => {
             .catch((error) => res.status(400).send(error));     
           };
 */
-const updateUser = (req, res) => {
+const updateBook = (req, res) => {
  const updateFields = {};
 
     Book.findOne({
@@ -59,9 +61,9 @@ const updateUser = (req, res) => {
           id: req.params.bookId,
         },
       })
-      .then((foundUser) => {
+      .then((foundBook) => {
         let updateFields = {};
-        if (foundUser === null) {
+        if (foundBook === null) {
           return res.status(404).send({
             message: 'This record does not exists!',
           });
@@ -75,15 +77,23 @@ const updateUser = (req, res) => {
           updateFields.author = req.body.author;
         }
 
-        foundUser.update(updateFields)
-          .then(updateUser => res.send({
+        if (req.body.category) {
+          updateFields.category = req.body.category;
+        }
+
+        if (req.body.units) {
+          updateFields.units = req.body.units;
+        }
+
+        foundBook.update(updateFields)
+          .then(updateBook => res.send({
             message: 'Successfully Updated',
-            updatedUser: updateUser,
+            updatedUser: updateBook
           }));
       });
   }
 
-const deleteUser = (req, res) => {
+const deleteBook = (req, res) => {
     return Book
       .findById(req.params.bookId)
       .then(book => {
@@ -94,7 +104,7 @@ const deleteUser = (req, res) => {
         }
         return book
             .destroy()
-            .then(deleteUser => res.send({
+            .then(deleteBook => res.send({
                 message: 'Record Successfully Deleted',
             }))
             .catch(error => res.status(400).send(error));
@@ -106,6 +116,6 @@ module.exports = {
     create,
     retrieveAll,
     retrieve,
-    updateUser,
-    deleteUser
+    updateBook,
+    deleteBook
 }

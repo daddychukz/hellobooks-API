@@ -8,7 +8,7 @@ const register = (req, res) => {
             sex:    req.body.sex,
             userName: req.body.username,
             phoneNumber:  req.body.phoneNumber,
-            password: req.body.pass,
+            password: req.body.password,
             memLevel: req.body.level
         })
         .then(deleteUser => res.send({
