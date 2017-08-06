@@ -15,9 +15,9 @@ router.get('/api/books', booksController.retrieveAll);
 
 router.get('/api/books/:bookId', booksController.retrieve);
 
-router.put('/api/books/:bookId', booksController.updateUser);
+router.put('/api/books/:bookId', booksController.updateBook);
 
-router.delete('/api/books/:bookId', booksController.deleteUser);
+router.delete('/api/books/:bookId', booksController.deleteBook);
 
 router.post('/api/users/signup', userController.register);
 
