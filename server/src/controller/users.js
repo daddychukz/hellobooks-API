@@ -26,7 +26,7 @@ const login = (req, res) => User
     },
   })
   .then((found) => {
-    if (found === null) {
+    if (!found) {
       return res.status(404).send({
         message: 'This record does not exists!'
       });

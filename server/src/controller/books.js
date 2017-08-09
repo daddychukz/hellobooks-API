@@ -74,7 +74,7 @@ const deleteBook = (req, res) => Book
   .findById(req.params.bookId)
   .then((book) => {
     if (!book) {
-      return res.status(400).send({
+      return res.status(404).send({
         message: 'This record was not found!',
       });
     }
@@ -85,8 +85,7 @@ const deleteBook = (req, res) => Book
         deletedBook
       }))
       .catch(error => res.status(400).send(error));
-  })
-  .catch(error => res.status(400).send(error));
+  });
 
   /* Export all methods */
 module.exports = {
