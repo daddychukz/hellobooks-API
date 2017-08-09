@@ -5,6 +5,7 @@ const router = express.Router();
 const booksController = require('../controller/books');
 const userController = require('../controller/users');
 const requestController = require('../controller/history');
+const { Auth } = require('../middleware/auth');
 
 /* GET home page. */
 router.get('/', (req, res) => {
@@ -14,7 +15,7 @@ router.get('/', (req, res) => {
 /* All API Routes */
 router.post('/api/books', booksController.create);
 
-router.get('/api/books', booksController.retrieveAll);
+router.get('/api/books', Auth.verify, booksController.retrieveAll);
 
 router.get('/api/books/:bookId', booksController.retrieve);
 

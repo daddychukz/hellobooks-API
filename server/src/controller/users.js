@@ -1,4 +1,10 @@
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const User = require('../models').users;
+
+require('dotenv').config();
+
+const secret = process.env.SECRET;
 
 /* Register a User */
 const register = (req, res) => User
@@ -17,26 +23,35 @@ const register = (req, res) => User
   }))
   .catch(err => res.status(400).send(err));
 
-  /* sign into the App */
-const login = (req, res) => User
-  .findOne({
-    where: {
-      email: req.body.email,
-      password: req.body.password
-    },
-  })
-  .then((found) => {
-    if (!found) {
-      return res.status(404).send({
-        message: 'This record does not exists!'
-      });
-    }
-    if (found) {
-      return res.status(200).send({
-        message: `Welcome to Hello-Books Library Management System @${req.body.email}`,
-      });
-    }
-  });
+/* sign into the App */
+const login = (req, res) => {
+  User
+    .findOne({
+      where: {
+        email: req.body.email
+      }
+    })
+    .then((user) => {
+      if (user) {
+        bcrypt.compare(req.body.password, user.password, (err, response) => {
+          if (response) {
+            const token = jwt.sign({
+              username: user.userName,
+            }, secret, { expiresIn: '24h' });
+            return res.status(200).send({ token });
+          }
+          return res.status(400).send({ message: 'Username or password incorrect' });
+        });
+        // return res.status(200).send({
+        //   message: `Welcome to Hello-Books Library Management System @${req.body.email}`,
+        // });
+      } else {
+        res.status(404).send({
+          message: 'This record does not exists!'
+        });
+      }
+    });
+};
 
 module.exports = {
   register,

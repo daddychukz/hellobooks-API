@@ -1,6 +1,12 @@
+/**
+ * This function creates the model of
+ * Users table in the database, specifying
+ * relationships, datatypes and constraints.
+ * 
+ */
+const bcrypt = require('bcrypt');
 
-
-module.exports = function (sequelize, DataTypes) {
+module.exports = (sequelize, DataTypes) => {
   const users = sequelize.define('users', {
     fullName: {
       type: DataTypes.STRING,
@@ -40,8 +46,15 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
-  });
-  users.associate = function (models) {
+  }, { hooks: {
+    beforeCreate: (newUser) => {
+      newUser.password = bcrypt.hashSync(newUser.password, bcrypt.genSaltSync(8));
+    },
+    afterUpdate: (newUser) => {
+      newUser.password = bcrypt.hashSync(newUser.password, bcrypt.genSaltSync(8));
+    }
+  } });
+  users.associate = (models) => {
     // associations can be defined here
     users.hasMany(models.reqhistory, {
       foreignKey: 'userId'
