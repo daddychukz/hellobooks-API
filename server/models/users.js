@@ -1,6 +1,7 @@
-'use strict';
-module.exports = function(sequelize, DataTypes) {
-  var users = sequelize.define('users', {
+
+
+module.exports = function (sequelize, DataTypes) {
+  const users = sequelize.define('users', {
     fullName: {
       type: DataTypes.STRING,
       allowNull: false
@@ -17,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
     userName: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique:true
+      unique: true
     },
     phoneNumber: {
       type: DataTypes.BIGINT,
@@ -39,12 +40,12 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
   });
+  users.associate = function (models) {
+    // associations can be defined here
+    users.hasMany(models.reqhistory, {
+      foreignKey: 'userId'
+    });
+  };
   return users;
 };

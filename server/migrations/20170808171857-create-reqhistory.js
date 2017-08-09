@@ -1,6 +1,7 @@
-'use strict';
+
+
 module.exports = {
-  up: function(queryInterface, Sequelize) {
+  up(queryInterface, Sequelize) {
     return queryInterface.createTable('reqhistories', {
       id: {
         allowNull: false,
@@ -9,18 +10,30 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       userId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        Reference: {
+          model: 'users',
+          key: 'id',
+          as: 'userId',
+        },
       },
       bookId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        Reference: {
+          model: 'book',
+          key: 'id',
+          as: 'bookId',
+        }
       },
       userName: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       bookTitle: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       author: {
         type: Sequelize.STRING,
@@ -32,7 +45,7 @@ module.exports = {
       },
       returned: {
         type: Sequelize.BOOLEAN,
-        defaultValue:false
+        defaultValue: false
       },
       createdAt: {
         allowNull: false,
@@ -44,7 +57,7 @@ module.exports = {
       }
     });
   },
-  down: function(queryInterface, Sequelize) {
+  down(queryInterface, Sequelize) {
     return queryInterface.dropTable('reqhistories');
   }
 };

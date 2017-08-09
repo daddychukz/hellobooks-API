@@ -1,20 +1,7 @@
-'use strict';
-module.exports = function(sequelize, DataTypes) {
-  var reqhistory = sequelize.define('reqhistory', {
-    userId: {
-      type: DataTypes.INTEGER,
-      Reference: {
-        model: 'users',
-        key: 'id'
-      }
-    },
-    bookId: {
-      type: DataTypes.INTEGER,
-      Reference: {
-        model: 'book',
-        key: 'id'
-      }
-    },
+
+
+module.exports = function (sequelize, DataTypes) {
+  const reqhistory = sequelize.define('reqhistory', {
     userName: {
       type: DataTypes.STRING,
       allowNull: false
@@ -35,12 +22,18 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
   });
+  // reqhistory.associate = function(models) {
+  //   // associations can be defined here
+  //   reqhistory.belongsTo(models.user, {
+  //     foreignKey: 'userId',
+  //     onDelete: 'CASCADE'
+  //   })
+
+  //   reqhistory.belongsTo(models.book, {
+  //     foreignKey: 'bookId',
+  //     onDelete: 'CASCADE'
+  //   })
+  // };
   return reqhistory;
 };

@@ -1,6 +1,7 @@
-'use strict';
-module.exports = function(sequelize, DataTypes) {
-  var book = sequelize.define('book', {
+
+
+module.exports = function (sequelize, DataTypes) {
+  const book = sequelize.define('book', {
     title: {
       type: DataTypes.STRING,
       allowNull: false
@@ -16,13 +17,13 @@ module.exports = function(sequelize, DataTypes) {
     units: {
       type: DataTypes.BIGINT,
       allowNull: false
-    }
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
+    },
   });
+  book.associate = function (models) {
+    // associations can be defined here
+    book.hasMany(models.reqhistory, {
+      foreignKey: 'bookId'
+    });
+  };
   return book;
 };

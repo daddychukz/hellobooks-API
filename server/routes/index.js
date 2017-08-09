@@ -1,12 +1,13 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+
+const router = express.Router();
 
 const booksController = require('../controller/books');
 const userController = require('../controller/users');
 const requestController = require('../controller/history');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
   res.render('index', { title: 'Express' });
 });
 
@@ -30,6 +31,6 @@ router.post('/api/users/:bookId/books', requestController.borrowBook);
 
 router.post('/api/users/:userId/create', requestController.createdd);
 
-//router.put('/api/users/:bookId/returnbook', requestController.returnBook);
+// router.put('/api/users/:bookId/returnbook', requestController.returnBook);
 
 module.exports = router;
