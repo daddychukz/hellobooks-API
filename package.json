@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./server/src/bin/www",
+    "start": "node ./server/src/bin/www",
     "lint": "eslint .",
     "build": "babel ./server/src --watch -d ./server/dist"
   },
