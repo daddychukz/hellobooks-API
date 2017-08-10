@@ -1,5 +1,11 @@
 'use strict';
 
+/**
+ * This function creates the table
+ * that holds all of the books available
+ * in the library.
+ */
+
 module.exports = {
   up: function up(queryInterface, Sequelize) {
     return queryInterface.createTable('books', {

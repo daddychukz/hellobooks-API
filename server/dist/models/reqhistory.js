@@ -1,5 +1,11 @@
 'use strict';
 
+/**
+ * This function create model of the
+ * Rent History table in the database specifying
+ * relationships, datatypes and constraints.
+ */
+
 module.exports = function (sequelize, DataTypes) {
   var reqhistory = sequelize.define('reqhistory', {
     userName: {
