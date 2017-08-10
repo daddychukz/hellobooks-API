@@ -1,31 +1,67 @@
-/**
- * API Endpoint Tests
- */
+// /**
+//  * API Endpoint Tests
+//  */
 
-const request = require('supertest');
-const chai = require('chai').expect;
-// const rewire = require('rewire');
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+
 const app = require('../app');
-const expect = chai.expect;
+const models = require('../models/');
+
+// const request = require('supertest');
+
+const expect = require('chai').expect;
+const assert = require('chai').assert;
+const should = require('chai').should();
+
+chai.use(chaiHttp);
 
 describe('OLMS', () => {
   it('loads the home page', (done) => {
-    request(app).get('/').expect(200).end(done);
-  });
-  describe('OLMS', () => {
-    it('gets the books-api route', (done) => {
-      request(app).get('/api/books').expect(200).end(done);
-    });
-  });
-});
-
-describe('Borrow book', () => {
-  it('should return the user if valid', (done) => {
-    request(app)
-      .post('/api/users/1/books')
+    chai
+      .request(app)
+      .get('/')
       .end((err, res) => {
-        chai(res.statusCode).to.be.equal(200);
+        if (err) {
+          return done(err);
+        }
+        expect(res)
+          .to
+          .have
+          .status(200);
         done();
       });
+  });
+
+  describe('POST /api/users/signup', () => {
+    it('should should create a new user', (done) => {
+      chai
+        .request(app)
+        .post('/api/users/signup')
+        .type('form')
+        .send({
+          fullName: 'john doe',
+          email: 'johndoe@test.com',
+          sex: 'male',
+          userName: 'johndoe',
+          phoneNumber: '08162740850',
+          password: 'jas123',
+          memLevel: 'gold',
+        })
+        .end((err, res) => {
+          assert.strictEqual(
+            res.body.data.email,
+            'johndoe@test.com',
+            'email sent is correct'
+          );
+          assert.strictEqual(
+            res.body.data.username,
+            'johndoe',
+            'username sent is correct'
+          );
+          res.should.have.status(201);
+          done();
+        });
+    });
   });
 });
