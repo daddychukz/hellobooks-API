@@ -6,7 +6,7 @@
     "start": "nodemon ./server/dist/bin/www",
     "lint": "eslint .",
     "build": "babel ./server/src --watch -d ./server/dist",
-    "test": "mocha ./server/src/tests/test --timeout 10000"
+    "test": "mocha ./server/src/tests/tests --timeout 10000"
   },
   "dependencies": {
     "bcrypt": "^1.0.2",
