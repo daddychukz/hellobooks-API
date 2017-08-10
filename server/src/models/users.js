@@ -4,8 +4,8 @@
  * relationships, datatypes and constraints.
  * 
  */
-import bcrypt from 'bcrypt';
-// const bcrypt = require('bcrypt');
+// import bcrypt from 'bcrypt';
+const bcrypt = require('bcrypt');
 
 module.exports = (sequelize, DataTypes) => {
   const users = sequelize.define('users', {

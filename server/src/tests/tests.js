@@ -32,36 +32,4 @@ describe('OLMS', () => {
         done();
       });
   });
-
-  describe('POST /api/users/signup', () => {
-    it('should should create a new user', (done) => {
-      chai
-        .request(app)
-        .post('/api/users/signup')
-        .type('form')
-        .send({
-          fullName: 'john doe',
-          email: 'johndoe@test.com',
-          sex: 'male',
-          userName: 'johndoe',
-          phoneNumber: '08162740850',
-          password: 'jas123',
-          memLevel: 'gold',
-        })
-        .end((err, res) => {
-          assert.strictEqual(
-            res.body.data.email,
-            'johndoe@test.com',
-            'email sent is correct'
-          );
-          assert.strictEqual(
-            res.body.data.username,
-            'johndoe',
-            'username sent is correct'
-          );
-          res.should.have.status(201);
-          done();
-        });
-    });
-  });
 });
