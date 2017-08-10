@@ -13,10 +13,10 @@ const Auth = {
   },
   isAdmin(req, res, next) {
     const decoded = jwt.verify(req.headers.authorization, secret);
-    if (decoded === true) {
+    if (decoded.isAdmin === true) {
       next();
     } else {
-      res.status(401).send({ message: 'You are currently unauthorized' });
+      res.status(401).send({ message: 'Access Denied! You are currently unauthorized' });
     }
   },
 };

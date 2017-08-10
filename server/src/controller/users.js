@@ -37,6 +37,7 @@ const login = (req, res) => {
           if (response) {
             const token = jwt.sign({
               username: user.userName,
+              isAdmin: user.isAdmin
             }, secret, { expiresIn: '24h' });
             return res.status(200).send({ token });
           }

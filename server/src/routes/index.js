@@ -8,26 +8,30 @@ const requestController = require('../controller/history');
 const { Auth } = require('../middleware/auth');
 
 /* GET home page. */
-router.get('/', (req, res) => {
-  res.render('index', { title: 'Express' });
-});
+router.get('/', (req, res) => // {
+  // res.render('index', { title: 'Express' });
+  res.status(200).send({
+    message: 'Online Library Management System',
+  })
+// }
+);
 
 /* All API Routes */
-router.post('/api/books', booksController.create);
+router.post('/api/books', Auth.isAdmin, booksController.create);
 
-router.get('/api/books', Auth.verify, booksController.retrieveAll);
+router.get('/api/books', booksController.retrieveAll);
 
 router.get('/api/books/:bookId', booksController.retrieve);
 
-router.put('/api/books/:bookId', booksController.updateBook);
+router.put('/api/books/:bookId', Auth.isAdmin, booksController.updateBook);
 
-router.delete('/api/books/:bookId', booksController.deleteBook);
+router.delete('/api/books/:bookId', Auth.isAdmin, booksController.deleteBook);
 
 router.post('/api/users/signup', userController.register);
 
 router.post('/api/users/signin', userController.login);
 
-router.get('/api/users/:userId/books', requestController.check);
+router.get('/api/users/:userId/books', Auth.isAdmin, requestController.check);
 
 router.post('/api/users/:bookId/books', requestController.borrowBook);
 
