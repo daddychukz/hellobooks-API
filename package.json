@@ -6,7 +6,7 @@
     "start": "nodemon ./server/dist/bin/www",
     "lint": "eslint .",
     "build": "babel ./server/src --watch -d ./server/dist",
-    "test": "mocha ./server/src/tests/tests --timeout 10000"
+    "test": "mocha ./server/src/tests/tests"
   },
   "dependencies": {
     "bcrypt": "^1.0.2",
@@ -20,6 +20,8 @@
     "express": "~4.15.2",
     "jsonwebtoken": "^7.4.2",
     "morgan": "~1.8.1",
+    "pg": "^7.1.0",
+    "pg-hstore": "^2.3.2",
     "sequelize": "^4.4.2",
     "serve-favicon": "~2.4.2",
     "supertest": "^3.0.0"
