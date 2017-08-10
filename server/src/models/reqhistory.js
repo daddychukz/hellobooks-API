@@ -4,7 +4,7 @@
  * relationships, datatypes and constraints.
  */
 
-module.exports = function (sequelize, DataTypes) {
+module.exports = (sequelize, DataTypes) => {
   const reqhistory = sequelize.define('reqhistory', {
     userName: {
       type: DataTypes.STRING,

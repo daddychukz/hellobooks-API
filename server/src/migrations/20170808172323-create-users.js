@@ -28,12 +28,12 @@ module.exports = {
       },
       userName: {
         type: Sequelize.STRING,
-        unique:true,
+        unique: true,
         allowNull: false
       },
       phoneNumber: {
         type: Sequelize.BIGINT,
-        unique:true,
+        unique: true,
         allowNull: false
       },
       password: {
@@ -61,7 +61,7 @@ module.exports = {
       }
     });
   },
-  down(queryInterface, Sequelize) {
+  down(queryInterface) {
     return queryInterface.dropTable('users');
   }
 };

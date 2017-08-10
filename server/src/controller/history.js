@@ -1,5 +1,8 @@
-const reqHistory = require('../models').reqhistory;
-const Book = require('../models').book;
+
+import { reqhistory as reqHistory, book as Book } from '../models';
+
+// const reqHistory = require('../models').reqhistory;
+// const Book = require('../models').book;
 
 /* Check for users yet to return a book */
 const check = (req, res) => {

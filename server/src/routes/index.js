@@ -1,11 +1,15 @@
-const express = require('express');
+import { express, router } from 'express';
+import booksController from '../controller/books';
+import userController from '../controller/users';
+import requestController from '../controller/history';
+import { Auth } from '../middleware/auth';
 
-const router = express.Router();
-
-const booksController = require('../controller/books');
-const userController = require('../controller/users');
-const requestController = require('../controller/history');
-const { Auth } = require('../middleware/auth');
+// const express = require('express');
+// const router = express.Router();
+// const booksController = require('../controller/books');
+// const userController = require('../controller/users');
+// const requestController = require('../controller/history');
+// const { Auth } = require('../middleware/auth');
 
 /* GET home page. */
 router.get('/', (req, res) => // {

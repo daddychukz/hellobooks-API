@@ -1,10 +1,16 @@
-const express = require('express');
-const path = require('path');
-const logger = require('morgan');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
+import express from 'express';
+import path from 'path';
+import logger from 'morgan';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import index from './routes/index';
 
-const index = require('./routes/index');
+// const express = require('express');
+// const path = require('path');
+// const logger = require('morgan');
+// const cookieParser = require('cookie-parser');
+// const bodyParser = require('body-parser');
+// const index = require('./routes/index');
 
 const app = express();
 
