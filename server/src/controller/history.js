@@ -63,7 +63,7 @@ const returnBook = (req, res) => {
   })
     .then((foundBook) => {
       const updateFields = {};
-      if (foundBook === null) {
+      if (!foundBook) {
         return res.status(404).send({
           message: 'This record does not exists!',
         });
