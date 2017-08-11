@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * This function creates a new
+ * table that holds all rented books
+ */
+
 module.exports = {
   up: function up(queryInterface, Sequelize) {
     return queryInterface.createTable('reqhistories', {

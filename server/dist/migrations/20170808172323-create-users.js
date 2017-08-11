@@ -1,5 +1,11 @@
 'use strict';
 
+/**
+ * This function creates a table that
+ * holds all registered Users and Admins
+ * of using the Application
+ */
+
 module.exports = {
   up: function up(queryInterface, Sequelize) {
     return queryInterface.createTable('users', {
