@@ -1,5 +1,11 @@
 'use strict';
 
+/**
+ * This function models the book table
+ * in the database specifying
+ * relationships, datatypes and constraints.
+ */
+
 module.exports = function (sequelize, DataTypes) {
   var book = sequelize.define('book', {
     title: {

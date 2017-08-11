@@ -8,9 +8,11 @@ const requestController = require('../controller/history');
 const { Auth } = require('../middleware/auth');
 
 /* GET home page. */
-router.get('/', (req, res) => {
-  res.render('index', { title: 'Express' });
-});
+router.get('/', (req, res) =>
+  res.status(200).send({
+    message: 'Online Library Management System',
+  })
+);
 
 /* All API Routes */
 router.post('/api/books', booksController.create);
