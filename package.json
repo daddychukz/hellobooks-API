@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./server/src/bin/www",
+    "start": "./node_modules/.bin/sequelize db:migrate && node ./server/src/bin/www",
     "lint": "eslint .",
     "build": "babel ./server/src --watch -d ./server/dist"
   },
