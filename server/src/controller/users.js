@@ -1,3 +1,7 @@
+// import bcrypt from 'bcrypt';
+// import jwt from 'jsonwebtoken';
+// import { users as User } from '../models/';
+
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models').users;
@@ -43,9 +47,6 @@ const login = (req, res) => {
           }
           return res.status(400).send({ message: 'Username or password incorrect' });
         });
-        // return res.status(200).send({
-        //   message: `Welcome to Hello-Books Library Management System @${req.body.email}`,
-        // });
       } else {
         res.status(404).send({
           message: 'This record does not exists!'
@@ -58,3 +59,8 @@ module.exports = {
   register,
   login
 };
+
+// export {
+//   register,
+//   login
+// };

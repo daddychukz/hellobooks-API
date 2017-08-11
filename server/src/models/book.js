@@ -4,7 +4,7 @@
  * relationships, datatypes and constraints.
  */
 
-module.exports = function (sequelize, DataTypes) {
+module.exports = (sequelize, DataTypes) => {
   const book = sequelize.define('book', {
     title: {
       type: DataTypes.STRING,
@@ -23,7 +23,7 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false
     },
   });
-  book.associate = function (models) {
+  book.associate = (models) => {
     // associations can be defined here
     book.hasMany(models.reqhistory, {
       foreignKey: 'bookId'

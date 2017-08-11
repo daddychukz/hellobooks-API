@@ -4,7 +4,7 @@
  * relationships, datatypes and constraints.
  */
 
-module.exports = function (sequelize, DataTypes) {
+module.exports = (sequelize, DataTypes) => {
   const reqhistory = sequelize.define('reqhistory', {
     userName: {
       type: DataTypes.STRING,
@@ -27,7 +27,7 @@ module.exports = function (sequelize, DataTypes) {
       defaultValue: false
     },
   });
-  // reqhistory.associate = function(models) {
+  // reqhistory.associate = (models) {
   //   // associations can be defined here
   //   reqhistory.belongsTo(models.user, {
   //     foreignKey: 'userId',

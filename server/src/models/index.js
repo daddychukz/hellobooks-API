@@ -1,4 +1,9 @@
-
+/**
+ * Import statement not functionction properly
+ */
+// import fs from 'fs';
+// import path from 'path';
+// import Sequelize from 'Sequelize';
 
 const fs = require('fs');
 const path = require('path');

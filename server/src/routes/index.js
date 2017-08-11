@@ -1,3 +1,10 @@
+/**
+ * Encoutered problems using the Import statement
+ */
+// import express from 'express';
+// import { booksController, userController, requestController } from '../controller/users';
+// import Auth from '../middleware/auth';
+
 const express = require('express');
 
 const router = express.Router();
@@ -36,3 +43,5 @@ router.post('/api/users/:bookId/books', requestController.borrowBook);
 router.put('/api/users/:bookId/returnbook', requestController.returnBook);
 
 module.exports = router;
+
+// export default router;

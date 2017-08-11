@@ -1,3 +1,5 @@
+// import ( Book as book ) from  '../models/';
+
 const Book = require('../models').book;
 
 /* Add new books */

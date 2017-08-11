@@ -1,3 +1,10 @@
+/**
+ * Import statement not supported in my node
+ */
+
+//  import { reqhistory as reqHistory, book as book } from '../models/';
+
+
 const reqHistory = require('../models').reqhistory;
 const Book = require('../models').book;
 
