@@ -22,7 +22,7 @@ router.get('/', (req, res) =>
 );
 
 /* All API Routes */
-router.post('/api/books', booksController.create);
+router.post('/api/books', Auth.isAdmin, booksController.create);
 
 router.get('/api/books', booksController.retrieveAll);
 
