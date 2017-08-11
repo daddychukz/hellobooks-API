@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/daddychukz/hellobooks-API.svg?branch=feature%2Fdev)](https://travis-ci.org/daddychukz/hellobooks-API)
 # HELLO BOOKS LIBRARY MANAGEMENT SYSTEM
 API model for hello-books library management system that helps automate the processes of a library. The system allow performance of the actions needed in order to manage the library in a simple convenient way. Processes for the library management includes addition/removal of books, addition/removal of members/users, member and book searches, membership level that determines the borrowed limit. The system prevents access or modification of data by users not granted the proper permissions.
 
