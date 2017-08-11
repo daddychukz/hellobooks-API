@@ -3,13 +3,16 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "./node_modules/.bin/sequelize db:migrate && node ./server/src/bin/www",
+    "start": "./node_modules/.bin/sequelize db:migrate && node ./server/dist/bin/www",
     "lint": "eslint .",
-    "build": "babel ./server/src --watch -d ./server/dist"
+    "build": "babel ./server/src --watch -d ./server/dist",
+    "test": "mocha ./server/tests/tests"
   },
   "dependencies": {
     "bcrypt": "^1.0.2",
     "body-parser": "~1.17.1",
+    "chai": "^4.1.1",
+    "chai-http": "^3.0.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "dotenv": "^4.0.0",

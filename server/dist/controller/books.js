@@ -2,6 +2,7 @@
 
 var Book = require('../models').book;
 
+/* Add new books */
 var create = function create(req, res) {
   return Book.create({
     title: req.body.title,
@@ -15,6 +16,7 @@ var create = function create(req, res) {
   });
 };
 
+/* Get all books in the library */
 var retrieveAll = function retrieveAll(req, res) {
   return Book.all().then(function (book) {
     return res.status(200).send(book);
@@ -23,6 +25,7 @@ var retrieveAll = function retrieveAll(req, res) {
   });
 };
 
+/* Get a Single Book */
 var retrieve = function retrieve(req, res) {
   return Book.findById(req.params.bookId).then(function (book) {
     if (!book) {
@@ -35,36 +38,15 @@ var retrieve = function retrieve(req, res) {
     return res.status(400).send(err);
   });
 };
-/*
-const updateUser = (req, res) => {
-    return Book
-        .findById(req.params.bookId)
-        .then(book => {
-           if (!book) { 
-            return res.status(404).send({
-                message: 'Book Not Found!',
-            });
-           }
-        return book
-           .update({
-               title: req.body.title || book.title,
-               author: req.body.author || book.author
-           })
-            .then(() => res.status(200).send(book))  // Send back the updated todo.
-            .catch((error) => res.status(400).send(errors));
-            })
-            .catch((error) => res.status(400).send(error));     
-          };
-*/
+
+/* Update Books */
 var updateBook = function updateBook(req, res) {
   var updateFields = {};
-
   Book.findOne({
     where: {
       id: req.params.bookId
     }
   }).then(function (foundBook) {
-    var updateFields = {};
     if (foundBook === null) {
       return res.status(404).send({
         message: 'This record does not exists!'
@@ -87,34 +69,35 @@ var updateBook = function updateBook(req, res) {
       updateFields.units = req.body.units;
     }
 
-    foundBook.update(updateFields).then(function (updateBook) {
+    foundBook.update(updateFields).then(function (updatedBook) {
       return res.send({
         message: 'Successfully Updated',
-        updatedUser: updateBook
+        updatedBook: updatedBook
       });
     });
   });
 };
 
+/* Delete a Book */
 var deleteBook = function deleteBook(req, res) {
   return Book.findById(req.params.bookId).then(function (book) {
     if (!book) {
-      return res.status(400).send({
+      return res.status(404).send({
         message: 'This record was not found!'
       });
     }
-    return book.destroy().then(function (deleteBook) {
+    return book.destroy().then(function (deletedBook) {
       return res.send({
-        message: 'Record Successfully Deleted'
+        message: 'Record Successfully Deleted',
+        deletedBook: deletedBook
       });
     }).catch(function (error) {
       return res.status(400).send(error);
     });
-  }).catch(function (error) {
-    return res.status(400).send(error);
   });
 };
 
+/* Export all methods */
 module.exports = {
   create: create,
   retrieveAll: retrieveAll,

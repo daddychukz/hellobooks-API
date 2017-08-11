@@ -3,6 +3,7 @@
 var reqHistory = require('../models').reqhistory;
 var Book = require('../models').book;
 
+/* Check for users yet to return a book */
 var check = function check(req, res) {
   if (req.query.returned) {
     reqHistory.findAll({
@@ -11,32 +12,13 @@ var check = function check(req, res) {
         returned: req.query.returned
       } }).then(function (books) {
       return res.status(200).send(books);
-    }
-    // if (books === []) {
-    //   return res.status(404).send({
-    //     message: 'User Not Found!'
-    //   });
-    // }
-    ).catch(function (err) {
+    }).catch(function (err) {
       return res.status(400).send(err);
     });
   }
 };
 
-var createdd = function createdd(req, res) {
-  return reqHistory.create({
-    userId: req.body.userId,
-    userName: req.body.userName,
-    bookTitle: req.body.bookTitle,
-    author: req.body.author,
-    requestDate: req.body.requestDate
-  }).then(function (request) {
-    return res.status(200).send(request);
-  }).catch(function (err) {
-    return res.status(400).send(err);
-  });
-};
-
+/* Borrow a book */
 var borrowBook = function borrowBook(req, res) {
   Book.findOne({
     where: {
@@ -57,13 +39,16 @@ var borrowBook = function borrowBook(req, res) {
       requestDate: req.body.requestDate
     }).then(function (borrowed) {
       return res.send({
-        message: 'A book has been borrowed by ' + req.body.userName });
+        message: 'A book has been borrowed by ' + req.body.userName,
+        borrowed: borrowed
+      });
     }).catch(function (err) {
       return res.status(400).send(err);
     });
   });
 };
 
+/* Return a Book */
 var returnBook = function returnBook(req, res) {
   reqHistory.findOne({
     where: {
@@ -79,18 +64,18 @@ var returnBook = function returnBook(req, res) {
     if (req.body.returned) {
       updateFields.returned = req.body.returned;
     }
-    foundBook.update(updateFields).then(function (returnBook) {
+    foundBook.update(updateFields).then(function (returnedBook) {
       return res.send({
         message: 'Successfully Returned',
-        returnedBook: returnBook
+        returnedBook: returnedBook
       });
     });
   });
 };
 
+/* Exports all methods */
 module.exports = {
   check: check,
-  createdd: createdd,
   borrowBook: borrowBook,
   returnBook: returnBook
 };

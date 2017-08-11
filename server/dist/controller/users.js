@@ -1,9 +1,16 @@
 'use strict';
 
-var Signup = require('../models').users;
+var bcrypt = require('bcrypt');
+var jwt = require('jsonwebtoken');
+var User = require('../models').users;
 
+require('dotenv').config();
+
+var secret = process.env.SECRET;
+
+/* Register a User */
 var register = function register(req, res) {
-  return Signup.create({
+  return User.create({
     fullName: req.body.fullName,
     email: req.body.email,
     sex: req.body.sex,
@@ -13,27 +20,38 @@ var register = function register(req, res) {
     memLevel: req.body.memLevel
   }).then(function (regUser) {
     return res.send({
-      message: 'User Successfully Registered' });
+      message: 'User Successfully Registered',
+      regUser: regUser
+    });
   }).catch(function (err) {
     return res.status(400).send(err);
   });
 };
 
+/* sign into the App */
 var login = function login(req, res) {
-  return Signup.findOne({
+  User.findOne({
     where: {
-      email: req.body.email,
-      password: req.body.password
+      email: req.body.email
     }
-  }).then(function (found) {
-    if (found === null) {
-      return res.status(404).send({
-        message: 'This record does not exists!'
+  }).then(function (user) {
+    if (user) {
+      bcrypt.compare(req.body.password, user.password, function (err, response) {
+        if (response) {
+          var token = jwt.sign({
+            username: user.userName,
+            isAdmin: user.isAdmin
+          }, secret, { expiresIn: '24h' });
+          return res.status(200).send({ token: token });
+        }
+        return res.status(400).send({ message: 'Username or password incorrect' });
       });
-    }
-    if (found) {
-      return res.status(200).send({
-        message: 'Welcome to Hello-Books Library Management System @' + req.body.email
+      // return res.status(200).send({
+      //   message: `Welcome to Hello-Books Library Management System @${req.body.email}`,
+      // });
+    } else {
+      res.status(404).send({
+        message: 'This record does not exists!'
       });
     }
   });
